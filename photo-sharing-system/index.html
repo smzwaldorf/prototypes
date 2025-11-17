@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Photo Sharing System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <h1>📸 School Photo Sharing</h1>
+            <div class="header-controls">
+                <select id="roleSelector" class="role-selector">
+                    <option value="teacher">Teacher/Admin</option>
+                    <option value="parent">Parent</option>
+                </select>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Teacher View -->
+        <div id="teacherView" class="view-container">
+            <div class="container">
+                <!-- Navigation Tabs -->
+                <nav class="tabs">
+                    <button class="tab-btn active" data-tab="events">Events</button>
+                    <button class="tab-btn" data-tab="students">Students & Classes</button>
+                    <button class="tab-btn" data-tab="upload">Upload & Tag Photos</button>
+                </nav>
+
+                <!-- Events Tab -->
+                <section id="eventsTab" class="tab-content active">
+                    <div class="section-header">
+                        <h2>Event Management</h2>
+                        <button id="createEventBtn" class="btn btn-primary">+ Create Event</button>
+                    </div>
+
+                    <!-- Create Event Form -->
+                    <div id="eventForm" class="form-card hidden">
+                        <h3>Create New Event</h3>
+                        <form id="newEventForm">
+                            <div class="form-group">
+                                <label for="eventName">Event Name</label>
+                                <input type="text" id="eventName" required placeholder="e.g., Spring Concert 2024">
+                            </div>
+                            <div class="form-group">
+                                <label for="eventDate">Event Date</label>
+                                <input type="date" id="eventDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="eventDescription">Description</label>
+                                <textarea id="eventDescription" rows="3" placeholder="Optional description"></textarea>
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary">Create Event</button>
+                                <button type="button" id="cancelEventBtn" class="btn btn-secondary">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Events List -->
+                    <div id="eventsList" class="events-grid"></div>
+                </section>
+
+                <!-- Students & Classes Tab -->
+                <section id="studentsTab" class="tab-content">
+                    <div class="section-header">
+                        <h2>Students & Classes</h2>
+                        <button id="addStudentBtn" class="btn btn-primary">+ Add Student</button>
+                    </div>
+
+                    <!-- Add Student Form -->
+                    <div id="studentForm" class="form-card hidden">
+                        <h3>Add New Student</h3>
+                        <form id="newStudentForm">
+                            <div class="form-group">
+                                <label for="studentName">Student Name</label>
+                                <input type="text" id="studentName" required placeholder="e.g., John Doe">
+                            </div>
+                            <div class="form-group">
+                                <label for="studentClass">Class/Grade</label>
+                                <input type="text" id="studentClass" required placeholder="e.g., 3rd Grade, Mrs. Smith">
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary">Add Student</button>
+                                <button type="button" id="cancelStudentBtn" class="btn btn-secondary">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Students List -->
+                    <div id="studentsList" class="students-grid"></div>
+                </section>
+
+                <!-- Upload & Tag Tab -->
+                <section id="uploadTab" class="tab-content">
+                    <div class="section-header">
+                        <h2>Upload & Tag Photos</h2>
+                    </div>
+
+                    <!-- Event Selection -->
+                    <div class="form-card">
+                        <div class="form-group">
+                            <label for="uploadEventSelect">Select Event</label>
+                            <select id="uploadEventSelect" class="event-select">
+                                <option value="">-- Select an event --</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Upload Area -->
+                    <div id="uploadArea" class="upload-section hidden">
+                        <div class="upload-zone" id="uploadZone">
+                            <input type="file" id="photoInput" accept="image/*" multiple hidden>
+                            <div class="upload-placeholder">
+                                <span class="upload-icon">📁</span>
+                                <p>Click to upload photos or drag and drop</p>
+                                <p class="upload-hint">Supports JPG, PNG (multiple files allowed)</p>
+                            </div>
+                        </div>
+
+                        <!-- Photo Preview & Tagging -->
+                        <div id="photosPreview" class="photos-preview"></div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- Parent View -->
+        <div id="parentView" class="view-container hidden">
+            <div class="container">
+                <h2>Browse Event Photos</h2>
+
+                <!-- Event Filter -->
+                <div class="filter-section">
+                    <div class="form-group">
+                        <label for="parentEventSelect">Select Event</label>
+                        <select id="parentEventSelect" class="event-select">
+                            <option value="">-- All Events --</option>
+                        </select>
+                    </div>
+
+                    <!-- Student/Class Filter -->
+                    <div class="filter-controls">
+                        <div class="form-group">
+                            <label for="studentFilter">Filter by Student</label>
+                            <select id="studentFilter" class="filter-select">
+                                <option value="">-- All Students --</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="classFilter">Filter by Class</label>
+                            <select id="classFilter" class="filter-select">
+                                <option value="">-- All Classes --</option>
+                            </select>
+                        </div>
+                        <button id="clearFiltersBtn" class="btn btn-secondary">Clear Filters</button>
+                    </div>
+                </div>
+
+                <!-- Photo Count -->
+                <div class="results-info">
+                    <p id="photoCount">No photos to display</p>
+                </div>
+
+                <!-- Photo Gallery -->
+                <div id="photoGallery" class="photo-gallery"></div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal for Photo Tagging -->
+    <div id="tagModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Tag Students in Photo</h3>
+                <button class="modal-close" id="closeTagModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="tag-photo-preview">
+                    <img id="tagPhotoImg" src="" alt="Photo to tag">
+                </div>
+                <div class="tag-controls">
+                    <h4>Select students in this photo:</h4>
+                    <div id="studentCheckboxes" class="student-checkboxes"></div>
+                    <div class="ai-suggestion">
+                        💡 <strong>AI Simulation:</strong> In a real system, AI would automatically detect and suggest students
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="saveTagsBtn" class="btn btn-primary">Save Tags</button>
+                <button id="cancelTagsBtn" class="btn btn-secondary">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Photo View (Parent) -->
+    <div id="viewModal" class="modal hidden">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h3>Photo Details</h3>
+                <button class="modal-close" id="closeViewModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="view-photo-container">
+                    <img id="viewPhotoImg" src="" alt="Photo">
+                </div>
+                <div class="photo-info">
+                    <h4>Students in this photo:</h4>
+                    <div id="photoTags" class="photo-tags"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="downloadPhotoBtn" class="btn btn-primary">Download Photo</button>
+                <button id="closeViewBtn" class="btn btn-secondary">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
