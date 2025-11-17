@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Wish List</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">🎓 School Wish List</h1>
+            <div class="role-switcher">
+                <button id="parentViewBtn" class="role-btn active">Parent View</button>
+                <button id="adminViewBtn" class="role-btn">Admin View</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Parent View -->
+            <div id="parentView" class="view-content active">
+                <!-- Submit Wish Section -->
+                <section class="submit-section">
+                    <h2>Submit a Wish</h2>
+                    <form id="wishForm" class="wish-form">
+                        <div class="form-group">
+                            <label for="wishTitle">Wish Title *</label>
+                            <input type="text" id="wishTitle" required placeholder="Brief title for your wish">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="wishDescription">Description *</label>
+                            <textarea id="wishDescription" required rows="4" placeholder="Describe your wish in detail..."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="wishCategory">Category</label>
+                            <select id="wishCategory">
+                                <option value="facilities">Facilities</option>
+                                <option value="curriculum">Curriculum</option>
+                                <option value="activities">Activities</option>
+                                <option value="resources">Resources</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group checkbox-group">
+                            <label>
+                                <input type="checkbox" id="submitAnonymous">
+                                <span>Submit anonymously</span>
+                            </label>
+                        </div>
+
+                        <div class="form-group" id="parentNameGroup">
+                            <label for="parentName">Your Name *</label>
+                            <input type="text" id="parentName" placeholder="Enter your name">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Submit Wish</button>
+                    </form>
+                </section>
+
+                <!-- Browse Wishes Section -->
+                <section class="browse-section">
+                    <div class="section-header">
+                        <h2>All Wishes</h2>
+                        <div class="filters">
+                            <select id="parentStatusFilter" class="filter-select">
+                                <option value="all">All Status</option>
+                                <option value="new">New</option>
+                                <option value="under-review">Under Review</option>
+                                <option value="planned">Planned</option>
+                                <option value="in-progress">In Progress</option>
+                                <option value="completed">Completed</option>
+                                <option value="declined">Declined</option>
+                            </select>
+                            <select id="parentCategoryFilter" class="filter-select">
+                                <option value="all">All Categories</option>
+                                <option value="facilities">Facilities</option>
+                                <option value="curriculum">Curriculum</option>
+                                <option value="activities">Activities</option>
+                                <option value="resources">Resources</option>
+                                <option value="other">Other</option>
+                            </select>
+                            <select id="parentSortBy" class="filter-select">
+                                <option value="recent">Most Recent</option>
+                                <option value="popular">Most Popular</option>
+                                <option value="oldest">Oldest</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="parentWishList" class="wish-list"></div>
+                </section>
+            </div>
+
+            <!-- Admin View -->
+            <div id="adminView" class="view-content">
+                <!-- Dashboard Stats -->
+                <section class="dashboard-stats">
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalWishes">0</div>
+                        <div class="stat-label">Total Wishes</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="newWishes">0</div>
+                        <div class="stat-label">New</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="inProgressWishes">0</div>
+                        <div class="stat-label">In Progress</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="completedWishes">0</div>
+                        <div class="stat-label">Completed</div>
+                    </div>
+                </section>
+
+                <!-- Admin Wishes Management -->
+                <section class="admin-section">
+                    <div class="section-header">
+                        <h2>Manage Wishes</h2>
+                        <div class="filters">
+                            <select id="adminStatusFilter" class="filter-select">
+                                <option value="all">All Status</option>
+                                <option value="new">New</option>
+                                <option value="under-review">Under Review</option>
+                                <option value="planned">Planned</option>
+                                <option value="in-progress">In Progress</option>
+                                <option value="completed">Completed</option>
+                                <option value="declined">Declined</option>
+                            </select>
+                            <select id="adminCategoryFilter" class="filter-select">
+                                <option value="all">All Categories</option>
+                                <option value="facilities">Facilities</option>
+                                <option value="curriculum">Curriculum</option>
+                                <option value="activities">Activities</option>
+                                <option value="resources">Resources</option>
+                                <option value="other">Other</option>
+                            </select>
+                            <select id="adminSortBy" class="filter-select">
+                                <option value="recent">Most Recent</option>
+                                <option value="popular">Most Popular</option>
+                                <option value="oldest">Oldest</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="adminWishList" class="wish-list admin-wish-list"></div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal for Wish Details (Admin) -->
+    <div id="wishModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
