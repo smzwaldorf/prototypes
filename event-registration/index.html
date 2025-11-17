@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Event Registration</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Role Selection Screen -->
+    <div id="role-selection" class="screen active">
+        <div class="container">
+            <header class="main-header">
+                <h1>School Event Registration</h1>
+                <p>Manage and register for school events</p>
+            </header>
+            <div class="role-cards">
+                <div class="role-card" onclick="selectRole('teacher')">
+                    <div class="role-icon">👨‍🏫</div>
+                    <h2>Teacher</h2>
+                    <p>Create and manage events</p>
+                </div>
+                <div class="role-card" onclick="selectRole('parent')">
+                    <div class="role-icon">👨‍👩‍👧‍👦</div>
+                    <h2>Parent</h2>
+                    <p>Register for events</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Teacher Dashboard -->
+    <div id="teacher-dashboard" class="screen">
+        <div class="container">
+            <header class="dashboard-header">
+                <h1>Teacher Dashboard</h1>
+                <button onclick="showScreen('role-selection')" class="btn-secondary">Switch Role</button>
+            </header>
+
+            <nav class="tab-nav">
+                <button class="tab-btn active" onclick="showTeacherTab('events-list')">Events</button>
+                <button class="tab-btn" onclick="showTeacherTab('create-event')">Create Event</button>
+            </nav>
+
+            <!-- Events List Tab -->
+            <div id="events-list" class="tab-content active">
+                <div class="section-header">
+                    <h2>All Events</h2>
+                </div>
+                <div id="teacher-events-container" class="events-grid">
+                    <!-- Events will be populated here -->
+                </div>
+            </div>
+
+            <!-- Create Event Tab -->
+            <div id="create-event" class="tab-content">
+                <div class="section-header">
+                    <h2 id="form-title">Create New Event</h2>
+                </div>
+                <form id="event-form" class="event-form">
+                    <input type="hidden" id="event-id" value="">
+
+                    <div class="form-group">
+                        <label for="event-title">Event Title *</label>
+                        <input type="text" id="event-title" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="event-description">Description *</label>
+                        <textarea id="event-description" rows="4" required></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="event-date">Date *</label>
+                            <input type="date" id="event-date" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="event-time">Time *</label>
+                            <input type="time" id="event-time" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="event-location">Location *</label>
+                        <input type="text" id="event-location" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="event-capacity">Capacity (optional)</label>
+                        <input type="number" id="event-capacity" min="1">
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="event-lunch">
+                            Include lunch options
+                        </label>
+                    </div>
+
+                    <div id="custom-fields-container">
+                        <div class="form-group">
+                            <label>Custom Fields</label>
+                            <div id="custom-fields-list"></div>
+                            <button type="button" onclick="addCustomField()" class="btn-secondary btn-small">+ Add Custom Field</button>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary">Save Event</button>
+                        <button type="button" onclick="cancelEventEdit()" class="btn-secondary">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Event Details Modal (Teacher) -->
+    <div id="event-details-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-event-title"></h2>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="modal-event-info"></div>
+
+                <div class="section-header">
+                    <h3>Registrations (<span id="modal-registration-count">0</span>)</h3>
+                </div>
+                <div id="modal-registrations-list" class="registrations-list">
+                    <!-- Registrations will be populated here -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button onclick="editEvent()" class="btn-primary">Edit Event</button>
+                <button onclick="deleteEvent()" class="btn-danger">Delete Event</button>
+                <button onclick="closeModal()" class="btn-secondary">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Parent View -->
+    <div id="parent-dashboard" class="screen">
+        <div class="container">
+            <header class="dashboard-header">
+                <h1>Parent Portal</h1>
+                <button onclick="showScreen('role-selection')" class="btn-secondary">Switch Role</button>
+            </header>
+
+            <nav class="tab-nav">
+                <button class="tab-btn active" onclick="showParentTab('browse-events')">Browse Events</button>
+                <button class="tab-btn" onclick="showParentTab('my-registrations')">My Registrations</button>
+                <button class="tab-btn" onclick="showParentTab('my-profile')">My Profile</button>
+            </nav>
+
+            <!-- Browse Events Tab -->
+            <div id="browse-events" class="tab-content active">
+                <div class="section-header">
+                    <h2>Upcoming Events</h2>
+                </div>
+                <div id="parent-events-container" class="events-grid">
+                    <!-- Events will be populated here -->
+                </div>
+            </div>
+
+            <!-- My Registrations Tab -->
+            <div id="my-registrations" class="tab-content">
+                <div class="section-header">
+                    <h2>My Registrations</h2>
+                </div>
+                <div id="my-registrations-container" class="events-grid">
+                    <!-- Registrations will be populated here -->
+                </div>
+            </div>
+
+            <!-- My Profile Tab -->
+            <div id="my-profile" class="tab-content">
+                <div class="section-header">
+                    <h2>My Profile</h2>
+                    <p>Save your information to quickly register for events</p>
+                </div>
+                <form id="profile-form" class="event-form">
+                    <div class="form-group">
+                        <label for="parent-name">Parent Name *</label>
+                        <input type="text" id="parent-name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="parent-email">Email *</label>
+                        <input type="email" id="parent-email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="parent-phone">Phone Number *</label>
+                        <input type="tel" id="parent-phone" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="student-name">Student Name *</label>
+                        <input type="text" id="student-name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="student-class">Class *</label>
+                        <input type="text" id="student-class" placeholder="e.g., 3A, Grade 5" required>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary">Save Profile</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Registration Modal (Parent) -->
+    <div id="registration-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="reg-modal-event-title"></h2>
+                <button class="close-btn" onclick="closeRegistrationModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="reg-modal-event-info"></div>
+
+                <form id="registration-form" class="event-form">
+                    <input type="hidden" id="reg-event-id" value="">
+
+                    <div class="form-group">
+                        <label for="reg-parent-name">Parent Name *</label>
+                        <input type="text" id="reg-parent-name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reg-parent-email">Email *</label>
+                        <input type="email" id="reg-parent-email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reg-parent-phone">Phone Number *</label>
+                        <input type="tel" id="reg-parent-phone" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reg-student-name">Student Name *</label>
+                        <input type="text" id="reg-student-name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reg-student-class">Class *</label>
+                        <input type="text" id="reg-student-class" placeholder="e.g., 3A, Grade 5" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reg-attendees">Number of Attendees *</label>
+                        <input type="number" id="reg-attendees" min="1" value="1" required>
+                    </div>
+
+                    <div id="reg-custom-fields"></div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary">Register</button>
+                        <button type="button" onclick="closeRegistrationModal()" class="btn-secondary">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
