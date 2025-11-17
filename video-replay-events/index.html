@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Event Video Replays</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="loginScreen" class="screen">
+        <div class="login-container">
+            <h1>School Event Replays</h1>
+            <p class="subtitle">Watch recordings of school events you may have missed</p>
+
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label for="username">Parent Username</label>
+                    <input
+                        type="text"
+                        id="username"
+                        placeholder="Enter your username"
+                        required
+                        aria-label="Username"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Enter your password"
+                        required
+                        aria-label="Password"
+                    >
+                </div>
+
+                <button type="submit" class="btn btn-primary">Login</button>
+
+                <p class="demo-note">
+                    <strong>Demo:</strong> Use any username/password to login
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main App Screen -->
+    <div id="appScreen" class="screen hidden">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <h1>School Event Replays</h1>
+                <div class="user-info">
+                    <span id="welcomeMessage"></span>
+                    <button id="logoutBtn" class="btn btn-secondary">Logout</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Calendar Navigation -->
+            <div class="calendar-header">
+                <button id="prevMonth" class="btn-nav" aria-label="Previous month">
+                    <span aria-hidden="true">‹</span>
+                </button>
+                <h2 id="currentMonth"></h2>
+                <button id="nextMonth" class="btn-nav" aria-label="Next month">
+                    <span aria-hidden="true">›</span>
+                </button>
+            </div>
+
+            <!-- Events List -->
+            <div id="eventsList" class="events-list">
+                <!-- Events will be dynamically inserted here -->
+            </div>
+
+            <!-- No Events Message -->
+            <div id="noEvents" class="no-events hidden">
+                <p>No events scheduled for this month.</p>
+            </div>
+        </main>
+    </div>
+
+    <!-- Video Modal -->
+    <div id="videoModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalEventTitle"></h2>
+                <button id="closeModal" class="btn-close" aria-label="Close video">×</button>
+            </div>
+            <div class="modal-body">
+                <div id="modalEventDetails" class="event-details"></div>
+                <div class="video-container">
+                    <iframe
+                        id="videoPlayer"
+                        width="100%"
+                        height="100%"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen
+                        title="Event video player"
+                    ></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
