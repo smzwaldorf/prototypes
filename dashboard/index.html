@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educational Prototypes Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="title">Educational Prototypes</h1>
+                <p class="subtitle">Simple web tools for teachers and parents</p>
+            </div>
+        </header>
+
+        <!-- Search and Filter Section -->
+        <section class="controls">
+            <div class="search-box">
+                <input
+                    type="text"
+                    id="searchInput"
+                    class="search-input"
+                    placeholder="Search prototypes..."
+                    aria-label="Search prototypes"
+                >
+            </div>
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-category="all">All</button>
+                <button class="filter-btn" data-category="tracking">Tracking</button>
+                <button class="filter-btn" data-category="planning">Planning</button>
+                <button class="filter-btn" data-category="assessment">Assessment</button>
+                <button class="filter-btn" data-category="communication">Communication</button>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="stats">
+            <div class="stat-card">
+                <div class="stat-number" id="totalPrototypes">0</div>
+                <div class="stat-label">Total Prototypes</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="categoriesCount">0</div>
+                <div class="stat-label">Categories</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="recentlyAdded">0</div>
+                <div class="stat-label">Recently Added</div>
+            </div>
+        </section>
+
+        <!-- Prototypes Grid -->
+        <section class="prototypes-section">
+            <h2 class="section-title">Available Prototypes</h2>
+            <div class="prototypes-grid" id="prototypesGrid">
+                <!-- Prototype cards will be dynamically inserted here -->
+            </div>
+
+            <!-- Empty State -->
+            <div class="empty-state" id="emptyState">
+                <div class="empty-icon">📦</div>
+                <h3>No prototypes found</h3>
+                <p>Try adjusting your search or filter criteria</p>
+            </div>
+
+            <!-- No Prototypes Yet State -->
+            <div class="no-prototypes" id="noPrototypes">
+                <div class="empty-icon">🚀</div>
+                <h3>Welcome to Educational Prototypes</h3>
+                <p>This dashboard will display all available prototypes once they are created.</p>
+                <p class="info-text">Each prototype is a self-contained web application designed for educational use.</p>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="about-section">
+            <h2 class="section-title">About This Dashboard</h2>
+            <div class="about-content">
+                <div class="about-card">
+                    <div class="about-icon">🎯</div>
+                    <h3>Purpose</h3>
+                    <p>A collection of simple, self-contained web tools designed specifically for teachers and parents to use in educational settings.</p>
+                </div>
+                <div class="about-card">
+                    <div class="about-icon">⚡</div>
+                    <h3>Easy to Use</h3>
+                    <p>No installation required. All prototypes work directly in your browser without any setup or external dependencies.</p>
+                </div>
+                <div class="about-card">
+                    <div class="about-icon">📱</div>
+                    <h3>Responsive Design</h3>
+                    <p>Every prototype is designed to work seamlessly on desktop, tablet, and mobile devices.</p>
+                </div>
+                <div class="about-card">
+                    <div class="about-icon">🔒</div>
+                    <h3>Privacy First</h3>
+                    <p>All data is stored locally on your device. No servers, no databases, complete privacy.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2024 Educational Prototypes. All prototypes are self-contained and require no external dependencies.</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
